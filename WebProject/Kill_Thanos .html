@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kill_Thanos</title>
+    <style>
+        body { text-align: center;}
+
+		.game_canvas{
+			position: relative;  /* 기준이 되는 부모 요소 */
+		    width: 1500px; /* 캔버스 크기와 동일하게 설정 */
+		    height: 800px;
+		    margin: auto;  /* 가운데 정렬 */
+		    border: 2px solid black;
+		}
+
+
+		#gameCanvas {
+		    width: 100%;  /* 부모 요소(.game_wrapper) 크기에 맞춤 */
+		    height: 100%;
+		    background-image: url("https://img1.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202105/24/hero_nitko/20210524035650013qkvi.jpg");
+		    background-size: cover;
+		    opacity: 0.85;
+		    display: block;
+
+		    z-index: 1;
+		}
+
+		#Start_TK {
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		    width: 100%;  
+		    height: 100%; 
+		    background-image: url("https://i.ytimg.com/vi/hrfJ4jnqdOw/sddefault.jpg");
+		    background-size: cover;
+		    background-repeat: no-repeat;
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    z-index: 3;
+		}
+
+
+		#btn {
+		    padding: 25px;
+		    position: relative;
+		    top: 40%;
+		    border: none;
+		    background-color: transparent;
+		    font-size: 50px;
+		}
+
+		#btn:hover {
+			color: red;
+		    text-decoration: underline;
+		    text-decoration-thickness: 2px;
+		}
+
+		#intro_TK{
+			position: absolute;
+           	top: 0;
+		    left: 0;
+		    width: 100%;  
+		    height: 100%; 
+			display: flex;
+			justify-content: center;
+			align-items: center;	
+			z-index: 2;
+		}
+
+		#intro_mp1_TK{
+			width: 100%;
+			height: 100%;
+		}
+
+		#time_limit {
+		    height: 600px;
+		    width: 30px;
+		    border: 2px solid black;
+		    position: absolute;
+		    display: inline-block;
+		    border-radius: 30px;
+		    background-color: white; /* 기본 배경을 흰색으로 */
+		    opacity: 0.3;  /* 기본적으로 투명도 설정 */
+		    top: 16%;
+		    left: 4%;
+		    
+		    /* 배경을 붉은색에서 흰색으로 변화 */
+		    background-image: 
+		        linear-gradient(to top, red 0%, white 100%);  /* 붉은색에서 흰색으로 변화 */
+		    
+		    /* 배경 사이즈 및 위치 조정 */
+		    background-size: 100% 100%; /* 첫 번째 배경은 꽉 채우고, 두 번째는 눈금 간격 */
+		    background-position: 0 0; /* 두 배경의 위치 설정 */
+		    
+		    z-index: 0;
+		}
+
+		#life_boss {
+		    position: absolute;
+		    top: 5%;
+		    left: 57%;
+		    transform: translateX(-50%);
+		    width: 80%;
+		    height: 30px;
+		    background-color: white;
+		    opacity: 0.3;
+		    border-radius: 15px;
+		    z-index: 1;
+		}
+
+		#boss_Hp {
+		    height: 100%;
+		    width: 100%;  /* 초기 HP는 100% */
+		    background-color: red;  /* 초기 배경색은 빨간색 */
+		    border-radius: 15px;
+		    transition: width 1s ease-out; /* 애니메이션 효과 */
+		}
+
+		#HP {
+		    position: absolute;
+		    display: flex;
+		    flex-direction: row;  /* 수평으로 아이템들 정렬 */
+		    align-items: flex-start;  /* 세로 방향에서 아이템들이 위로 정렬되도록 */
+		    top: 4%;   /* 상단 위치 설정 */
+		    left: 0.7%;  /* 왼쪽 위치 설정 */
+		    width: auto;  /* 너비 자동 설정 */
+		    height: 35px; /* 아이템 크기 */
+		}
+
+		#HP_1, #HP_2, #HP_3, #HP_4, #HP_5 {
+		    width: 35px;
+		    height: 35px;
+		    background-image: url("images/하트3.png");
+		    background-size: cover;
+		    margin-right: 5px;  /* 아이템 간 간격을 5px로 설정 */
+		}
+
+
+        #LV_bar {
+            position: absolute;
+            top: 93%;
+            left: 65%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 20px;
+        	background-color: white;
+        	opacity: 0.3;
+            border-radius: 15px;
+            z-index: 1;
+        }
+
+
+		/* 오른쪽 밑 스킬 정렬 다시*/
+		#Game_Skill{
+			height: 200px;
+			width: 30px;
+/*			border: 2px solid black;*/
+			position: absolute;
+/*			background-color: rebeccapurple;*/
+			display: flex;
+			top: 90%;
+			right: 3%;
+		}
+
+ 		#Skill_icon {
+            background-image: url("https://cdn.pixabay.com/photo/2012/04/24/13/00/mark-39951_1280.png");
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            background-size: cover;
+            position: absolute;
+            display: flex;
+            border: 0;
+            top: 5px;
+            left: 7px;
+        }
+
+        /* 레벨에 따른 스킬 아이콘 */
+        #Skill_A, #Skill_B {
+            display: none; 
+			position: absolute;
+            background-size: cover;
+            width: 50px;
+            height: 50px;
+/*            margin-top: 10px;*/
+        }
+
+        #Skill_A {
+            background-image: url("images/스킬A.png");
+        }
+
+        #Skill_B {
+            background-image: url("images/스킬B.png");
+        }
+
+
+
+
+
+    </style>
+</head>
+<body>
+    <div class="main_wrab">
+        <div class="title"><h1>Kill_Thanos</h1></div>
+        <div class="game_canvas">
+        	<!-- 게임 스타트 -->
+        	<canvas id="gameCanvas" width="1500" height="800"></canvas>
+        	<!-- ui -->
+        	<div id="HP">
+        		<!-- HP도 이미지로 변경 -->
+        		<span class="life" id="HP_1"></span>
+        		<span class="life" id="HP_2"></span>
+        		<span class="life" id="HP_3"></span>
+        		<span class="life" id="HP_4"></span>
+        		<span class="life" id="HP_5"></span>
+        	</div>
+            <div id="Game_Skill">
+                <!-- 아이템 아이콘들 -->
+                <div id="Skill_icon"></div> <!-- 기본 없음 -->
+                <!-- 레이저 1단계 -->
+                <div id="Skill_A"></div>
+                <!-- 레이저 2단계 -->
+                <div id="Skill_B"></div>
+
+                <div id="skill_time"></div> <!-- 숫자로 표기 -->
+            </div>
+
+        	<div id="time_limit">
+        		<!-- ⏱ 🕗 -->
+        		<!-- 시간바는 보스 나오는 데 남은 시간 -->
+        	</div>
+
+        	<div id="life_boss">
+      			<div id="boss_Hp"></div>
+        	</div>
+
+            <div id="LV_bar"><!-- 점수 게이지 --></div>
+        	<!-- 인트로 클릭시 시작되어야 -->
+        	<div id="intro_TK" width="600" height="800">
+        		<!-- 게임 화면 조정 후 주석 해제 -->
+        		<video playsinline id="intro_mp4_TK" width="100%" height="100%">
+        			<source id="Video_img" src="images/intro_Start.mp4">
+        		</video>
+        	</div>
+
+        	<!-- start 화면 -->
+        	<div id="Start_TK" width="600" height="800">
+        		<button id="btn" onclick="StartMap()">START</button>	
+        	</div>
+
+        	<!-- 보스 페이즈 패턴 180도 회전 -->
+        	<div id="Boss_Reality"></div>
+
+        	<div id="soldier">
+        		<div id="soldierA"></div>
+        		<div id="soldierB"></div>
+        		<div id="soldierC"></div>
+        	</div>
+
+        	<button onclick="bossDamage(10)">보스에게 10 데미지 입히기</button>
+        	<button onclick="Damage(2)">캐릭터에게 데미지 2</button>
+
+
+        </div>
+    </div>
+    <script src="kill_t.js"></script>
+</body>
+</html>

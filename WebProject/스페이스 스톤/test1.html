@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Stone Test</title>
+    <style>
+        body { text-align: center; background-color: black; color: white; }
+        .game_canvas {
+            position: relative;
+            width: 800px;
+            height: 600px;
+            margin: auto;
+            border: 2px solid white;
+            background-color: #111;
+        }
+        #gameCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Space Stone Test</h1>
+    <p>Press <b>Space</b> to activate the Space Stone.</p>
+    <p>Press <b>T</b> to reset.</p>
+    
+    <div class="game_canvas">
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+    </div>
+
+    <script src="space_stone_test.js"></script>
+</body>
+</html>
