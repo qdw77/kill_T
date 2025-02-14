@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kill_Thanos</title>
+    <style>
+        body { text-align: center;}
+
+		.game_canvas{
+			position: relative;  /* 기준이 되는 부모 요소 */
+		    width: 1500px; /* 캔버스 크기와 동일하게 설정 */
+		    height: 800px;
+		    margin: auto;  /* 가운데 정렬 */
+		    border: 2px solid black;
+		}
+
+
+		#gameCanvas {
+		    width: 100%;  /* 부모 요소(.game_wrapper) 크기에 맞춤 */
+		    height: 100%;
+		    background-image: url("https://img1.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202105/24/hero_nitko/20210524035650013qkvi.jpg");
+		    background-size: cover;
+		    opacity: 0.85;
+		    display: block;
+
+		    z-index: 1;
+		}
+
+		#Start_TK {
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		    width: 100%;  
+		    height: 100%; 
+		    background-image: url("https://i.ytimg.com/vi/hrfJ4jnqdOw/sddefault.jpg");
+		    background-size: cover;
+		    background-repeat: no-repeat;
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    z-index: 3;
+		}
+
+
+		#btn {
+		    padding: 25px;
+		    position: relative;
+		    top: 40%;
+		    border: none;
+		    background-color: transparent;
+		    font-size: 50px;
+		}
+
+		#btn:hover {
+			color: red;
+		    text-decoration: underline;
+		    text-decoration-thickness: 2px;
+		}
+
+		#intro_TK{
+			position: absolute;
+           	top: 0;
+		    left: 0;
+		    width: 100%;  
+		    height: 100%; 
+			display: flex;
+			justify-content: center;
+			align-items: center;	
+			z-index: 2;
+		}
+
+		#intro_mp1_TK{
+			width: 100%;
+			height: 100%;
+		}
+
+		#time_limit {
+		    height: 600px;
+		    width: 30px;
+		    border: 2px solid black;
+		    position: absolute;
+		    display: inline-block;
+		    border-radius: 30px;
+		    background-color: white; /* 기본 배경을 흰색으로 */
+		    opacity: 0.3;  /* 기본적으로 투명도 설정 */
+		    top: 16%;
+		    left: 4%;
+		    
+		    /* 배경을 붉은색에서 흰색으로 변화 */
+		    background-image: 
+		        linear-gradient(to top, red 0%, white 100%);  /* 붉은색에서 흰색으로 변화 */
+		    
+		    /* 배경 사이즈 및 위치 조정 */
+			
+		    background-size: 100% 100%; /* 첫 번째 배경은 꽉 채우고, 두 번째는 눈금 간격 */
+		    background-position: 0 0; /* 두 배경의 위치 설정 */
+		    
+		    z-index: 0;
+		}
+
+		#life_boss {
+		    position: absolute;
+		    top: 5%;
+		    left: 57%;
+		    transform: translateX(-50%);
+		    width: 80%;
+		    height: 30px;
+		    background-color: white;
+		    opacity: 0.3;
+		    border-radius: 15px;
+		    z-index: 1;
+		}
+
+		#boss_Hp {
+		    height: 100%;
+		    width: 100%;  /* 초기 HP는 100% */
+		    background-color: red;  /* 초기 배경색은 빨간색 */
+		    border-radius: 15px;
+		    transition: width 1s ease-out; /* 애니메이션 효과 */
+		}
+
+		#HP {
+		    position: absolute;
+		    display: flex;
+		    flex-direction: row;  /* 수평으로 아이템들 정렬 */
+		    align-items: flex-start;  /* 세로 방향에서 아이템들이 위로 정렬되도록 */
+		    top: 4%;   /* 상단 위치 설정 */
+		    left: 0.7%;  /* 왼쪽 위치 설정 */
+		    width: auto;  /* 너비 자동 설정 */
+		    height: 35px; /* 아이템 크기 */
+		}
+
+		#HP_1, #HP_2, #HP_3, #HP_4, #HP_5 {
+		    width: 35px;
+		    height: 35px;
+		    background-image: url("images/하트3.png");
+		    background-size: cover;
+		    margin-right: 5px;  /* 아이템 간 간격을 5px로 설정 */
+		}
+
+        #clear_mp4_TK{
+        	display: none;
+        	width: 100%;
+			height: 100%;
+			z-index: 3;
+        }
+
+        #over_mp4_TK{
+        	display: none;
+        	width: 100%;
+			height: 100%;
+			z-index: 4;
+        }
+    </style>
+</head>
+<body>
+    <div class="main_wrab">
+        <div class="title"><h1>Kill_Thanos</h1></div>
+        <div class="game_canvas">
+        	<!-- 게임 스타트 -->
+        	<canvas id="gameCanvas" width="1500" height="800"></canvas>
+        	<!-- ui -->
+        	<div id="HP">
+        		<!-- HP도 이미지로 변경 -->
+        		<span class="life" id="HP_1"></span>
+        		<span class="life" id="HP_2"></span>
+        		<span class="life" id="HP_3"></span>
+        		<span class="life" id="HP_4"></span>
+        		<span class="life" id="HP_5"></span>
+        	</div>
+
+        	<div id="time_limit">
+        		<!-- 시간바는 보스 나오는 데 남은 시간 -->
+        	</div>
+
+        	<div id="life_boss">
+      			<div id="boss_Hp"></div>
+        	</div>
+        	
+        	<div id="intro_TK" width="600" height="800">
+        		<video playsinline id="intro_mp4_TK" width="100%" height="100%">
+        			<source id="Video_img" src="intro_TK.mp4">
+        		</video>
+        		<video playsinline id="clear_mp4_TK" width="100%" height="100%">
+        			<source id="Video_img_clear" src="./images/clear_boss.mp4">
+        		</video>
+        		<video playsinline id="over_mp4_TK" width="100%" height="100%">
+        			<source id="Video_img_over" src="./images/game_over.mp4">
+        		</video>
+        	</div>
+
+        	<!-- start 화면 -->
+        	<div id="Start_TK" width="600" height="800">
+        		<button id="btn" onclick="StartMap()">START</button>	
+        	</div>
+        </div>
+    </div>
+    <script src="./kill_t.js"></script>
+</body>
+</html>
